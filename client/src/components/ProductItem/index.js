@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { pluralize } from "../../utils/helpers"
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
+import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../features/cartSlice";
 import { idbPromise } from "../../utils/helpers";
 import {useDispatch, useSelector} from "react-redux"
 
@@ -17,7 +17,7 @@ function ProductItem(item) {
     quantity
   } = item;
 
-  const { cart } = state
+  const { cart: {cart} } = state
 
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === _id)

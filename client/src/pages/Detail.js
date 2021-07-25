@@ -8,25 +8,22 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
   ADD_TO_CART,
-  UPDATE_PRODUCTS,
-} from "../utils/actions";
+  } from "../features/cartSlice";
+import {UPDATE_PRODUCTS}  from '../features/productSlice'
+
 import { QUERY_PRODUCTS } from "../utils/queries";
 import { idbPromise } from "../utils/helpers";
 import spinner from '../assets/spinner.gif'
 
 function Detail() {
-
-  
- 
-
   const dispatch = useDispatch()
-  const state = useSelector(state => state.state)
+  const state = useSelector(state => state)
   const [currentProduct, setCurrentProduct] = useState({});
   const { id } = useParams();
 
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
-  const { products, cart } = state;
+  const { product : { products}, cart : {cart}  } = state;
 
   useEffect(() => {
     // already in global store
@@ -108,7 +105,7 @@ function Detail() {
               Add to Cart
             </button>
             <button 
-              disabled={!cart.find(p => p._id === currentProduct._id)} 
+              disabled={!cart?.find(p => p._id === currentProduct._id)} 
               onClick={removeFromCart}
             >
               Remove from Cart

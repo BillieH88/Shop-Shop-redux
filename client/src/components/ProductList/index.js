@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ProductItem from "../ProductItem";
-import { UPDATE_PRODUCTS } from "../../utils/actions";
+import { UPDATE_PRODUCTS } from "../../features/productSlice";
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
@@ -11,7 +11,7 @@ function ProductList() {
   const dispatch = useDispatch()
   const state = useSelector(state => state)
 
-  const { currentCategory } = state;
+  const { category: {currentCategory} } = state;
 
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
@@ -36,10 +36,10 @@ function ProductList() {
 
   function filterProducts() {
     if (!currentCategory) {
-      return state.products;
+      return state.product.products;
     }
 
-    return state.products.filter(product => product.category._id === currentCategory);
+    return state.product.products.filter(product => product.category._id === currentCategory);
   }
 
   return (

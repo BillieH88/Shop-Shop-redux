@@ -10,6 +10,7 @@ export const cartSlice = createSlice({
     reducers: {
 
 ADD_TO_CART (state,action){
+
     return {
         ...state,
         cartOpen: true,
@@ -17,21 +18,25 @@ ADD_TO_CART (state,action){
       }
 },
     ADD_MULTIPLE_TO_CART(state,action){
+    
     return {
         ...state,
         cart: [...state.cart, ...action.products],
     }
 },
 UPDATE_CART_QUANTITY(state,action) {
-    return {
-    ...state,
-    cartOpen: true,
-    cart: state.cart.map(product => {
+  let cartClone = JSON.parse(JSON.stringify(state.cart))
+  let newCart = cartClone.map(product => {
     if (action._id === product._id) {
-      product.purchaseQuantity = action.purchaseQuantity
+      const newQuantity = action.purchaseQuantity
+      product.purchaseQuantity = newQuantity
     }
     return product
   })
+    return {
+    ...state,
+    cartOpen: true,
+    cart : newCart
     };
 },
 REMOVE_FROM_CART(state,action){

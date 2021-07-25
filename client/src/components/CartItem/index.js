@@ -1,5 +1,5 @@
 import React from 'react';
-import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
+import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../features/cartSlice";
 import { idbPromise } from "../../utils/helpers";
 import {useDispatch} from "react-redux"
 
@@ -16,7 +16,7 @@ const CartItem = ({ item }) => {
     idbPromise('cart', 'delete', { ...item });
 
   };
-
+//not working 
   const onChange = (e) => {
     const value = e.target.value;
     if (value === '0') {
@@ -36,7 +36,7 @@ const CartItem = ({ item }) => {
 
     }
   }
-
+// above issue 
   return (
     <div className="flex-row">
       <div>
